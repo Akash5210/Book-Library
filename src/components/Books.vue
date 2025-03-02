@@ -1,24 +1,4 @@
 <template>
-  <input v-model="newBook.title" placeholder="Title" />
-  <input v-model="newBook.author" placeholder="Author" />
-  <input v-model="newBook.price" placeholder="Price" />
-  <button :style='{ marginLeft: "5px", }' @click="addItem">{{ newBook.btnStatus }}</button>
-  <div>
-    <input type="radio" id="horror" value="Horror" v-model="newBook.type" />
-    <label for="horror">Horror</label>
-
-    <input type="radio" id="scienceFiction" value="Science Fiction" v-model="newBook.type" />
-    <label for="scienceFiction">Science Fiction</label>
-
-    <input type="radio" id="romance" value="Romance" v-model="newBook.type" />
-    <label for="romance">Romance</label>
-
-    <input type="radio" id="thriller" value="Thriller" v-model="newBook.type" />
-    <label for="thriller">Thriller</label>
-
-    <input type="radio" id="fantasy" value="Fantasy" v-model="newBook.type" />
-    <label for="fantasy">Fantasy</label>
-  </div>
   <div>
     <el-button plain @click="changeFormVisibility(true)" type="success" :icon="Plus">Add New Book</el-button>
     <el-button-group class="ml-4">
@@ -29,6 +9,7 @@
   <AddOrEditBook 
     :booksdata="booksdata" 
     :isFormVisible="isFormVisible" 
+    :editBookData="editBookData"
     @changeFormVisibility="changeFormVisibility" 
     @addBook="addBook" @editBook="editBook" 
   />
@@ -38,7 +19,7 @@
     @removeBook="removeBook" 
     @editBook="editBook" 
   />
-  <!-- <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @removeBook="removeBook" @editBook="editBook" /> -->
+  <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @removeBook="removeBook" @populateModal="populateModal"/>
 </template>
 
 <script setup>
@@ -65,12 +46,13 @@ const booksdata = ref([
   { id: 10, title: "Can Love happens twice", type: ["Fantasy"], author: "107", price: 11, summary: "testing01" }
 ])
 
-const newBook = ref({
+const editBookData = ref({
   id: "",
   title: "",
-  type: "",
+  type: [],
   author: "",
   price: 0,
+  summary: "",
   btnStatus: "Add"
 })
 
@@ -87,25 +69,35 @@ const addBook = (book) => {
 }
 
 const editBook = (currentBook) => {
+  console.log(currentBook)
 
   booksdata.value.forEach(book => {
     if (book.id === currentBook.id) {
+      changeFormVisibility(true);
+
+
       book.title = currentBook.title;
       book.type = [...currentBook.type];
       book.author = currentBook.author;
       book.price = currentBook.price;
-      summary = currentBook.summary
+      book.summary = currentBook.summary
     }
   })
 }
 
-let editBook1 = (book) => {
-  newBook.value.id = book.id;
-  newBook.value.title = book.title;
-  newBook.value.type = book.type;
-  newBook.value.author = book.author;
-  newBook.value.price = book.price;
-  newBook.value.btnStatus = 'Update';
+let populateModal = (book) => {
+  console.log(book)
+
+  editBookData.value.id = book.id;
+  editBookData.value.title = book.title;
+  editBookData.value.type = book.type;
+  editBookData.value.author = book.author;
+  editBookData.value.price = book.price;
+  editBookData.value.summary = book.summary;
+  editBookData.value.btnStatus = 'Update';
+
+  // changeFormVisibility(true);
+  isFormVisible.value = true;
 }
 
 let removeBook = (id) => {
@@ -113,14 +105,14 @@ let removeBook = (id) => {
   booksdata.value = booksdata.value.filter(book => book.id !== id);
 }
 
-const resetValues = () => {
-  newBook.value = {
-    id: "",
-    book: "",
-    bookType: "",
-    author: "",
-    price: 0,
-    btnStatus: "Add"
-  }
-}
+// const resetValues = () => {
+//   editBookData.value = {
+//     id: "",
+//     book: "",
+//     bookType: "",
+//     author: "",
+//     price: 0,
+//     btnStatus: "Add"
+//   }
+// }
 </script>

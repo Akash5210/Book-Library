@@ -24,10 +24,10 @@
 </template>
 <script setup>
 const props = defineProps(['booksdata'])
-const emit = defineEmits(['removeBook', 'editBook'])
+const emit = defineEmits(['removeBook', 'populateModal'])
 
 const handleEdit = (book) => {
-  emit('editBook', book)
+  emit('populateModal', book)
 }
 const handleDelete = (book) => {
   emit('removeBook', book.id)

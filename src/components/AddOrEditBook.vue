@@ -1,30 +1,13 @@
 <template>
     <div>
-        <el-dialog v-model="dialogVisible" title="Notice" width="500" destroy-on-close center>
-            <span>
-                Notice: before dialog gets opened for the first time this node and the one
-                bellow will not be rendered
-            </span>
-            <div>
-                <strong>Extra content (Not rendered)</strong>
-            </div>
-            <template #footer>
-                <div class="dialog-footer">
-                    <el-button @click="$emit('changeFormVisibility', false)">Cancel</el-button>
-                    <el-button type="primary" @click="$emit('changeFormVisibility', false)">
-                        Confirm
-                    </el-button>
-                </div>
-            </template>
-        </el-dialog>
-
-        <el-form ref="ruleFormRef" style="max-width: 600px" :model="newBook" :rules="rules" label-width="auto"
+        <el-dialog v-if="dialogVisible" v-model="dialogVisible" :title="newBook.formData.btnStatus" width="500" destroy-on-close center>
+            <el-form ref="ruleFormRef" style="max-width: 600px" :model="newBook.formData" :rules="rules" label-width="auto"
             class="demo-ruleForm" status-icon>
             <el-form-item label="Book Title" prop="title">
-                <el-input v-model="newBook.title" />
+                <el-input v-model="newBook.formData.title" />
             </el-form-item>
             <el-form-item label="Genre" prop="type">
-                <el-checkbox-group v-model="newBook.type">
+                <el-checkbox-group v-model="newBook.formData.type">
                     <el-checkbox value="Science Fiction" name="type">
                         Science Fiction
                     </el-checkbox>
@@ -43,50 +26,53 @@
                 </el-checkbox-group>
             </el-form-item>
             <el-form-item label="Author" prop="author">
-                <el-input v-model="newBook.author" />
+                <el-input v-model="newBook.formData.author" />
             </el-form-item>
             <el-form-item label="Price" prop="price">
-                <!-- <el-input-number v-model="newBook.price" :min=0>
+                <!-- <el-input-number v-model="newBook.formData.price" :min=0>
                 <template #prefix>
                     <span>₹</span>
                 </template>
             </el-input-number> -->
-                <el-input v-model="newBook.price" />
+                <el-input v-model="newBook.formData.price" />
             </el-form-item>
             <el-form-item label="Summary" prop="summary">
-                <el-input v-model="newBook.summary" type="textarea" />
+                <el-input v-model="newBook.formData.summary" type="textarea" />
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="addItem(ruleFormRef)">{{ newBook.btnStatus }}</el-button>
-                <el-button @click="cancelForm(ruleFormRef)">Cancel</el-button>
+            <el-form-item class="dialog-footer">
+                <el-button type="primary" @click="addItem(ruleFormRef)">{{ newBook.formData.btnStatus }}</el-button>
+                <el-button @click="$emit('changeFormVisibility', false)">Cancel</el-button>
                 <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
             </el-form-item>
         </el-form>
+        </el-dialog>
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue';
 
-const props = defineProps(['booksdata', 'isFormVisible'])
+const props = defineProps(['booksdata', 'isFormVisible', 'editBookData'])
 const emit = defineEmits(['addBook', 'editBook', 'changeFormVisibility'])
 
 
 const ruleFormRef = ref()
 const newBook = ref({
-    id: "",
-    title: '',
-    type: [],
-    author: "",
-    price: "",
-    summary: "",
-    btnStatus: "Add",
+    formData: props.editBookData || {
+        id: "",
+        title: '',
+        type: [],
+        author: "",
+        price: "",
+        summary: "",
+        btnStatus: "Add"
+    }
 })
 const dialogVisible = ref()
 
-const isFormModalVisible = computed(()=>{
-    console.log("triggered")
-    dialogVisible.value = props.isFormVisible
+let isFormModalVisible = computed(()=>{
+    console.log("triggered");
+    dialogVisible.value = props.isFormVisible;
 })
 watch(isFormModalVisible, (currentValue)=>{
     dialogVisible.value = currentValue;
@@ -140,36 +126,30 @@ let addItem = async (formEl) => {
         }
     })
     const tempData = {
-        id: newBook.value.btnStatus === "Add" ? Date.now() + Math.random() : newBook.value.id,
-        title: newBook.value.title,
-        type: newBook.value.type,
-        author: newBook.value.author,
-        price: newBook.value.price,
-        summary: newBook.value.summary
+        id: newBook.value.formData.btnStatus === "Add" ? Date.now() + Math.random() : newBook.value.formData.id,
+        title: newBook.value.formData.title,
+        type: newBook.value.formData.type,
+        author: newBook.value.formData.author,
+        price: newBook.value.formData.price,
+        summary: newBook.value.formData.summary
     }
     // console.log(tempData);
 
-    if (newBook.value.btnStatus === "Add") {
+    if (newBook.value.formData.btnStatus === "Add") {
         emit('addBook', tempData);
     } else {
         emit('editBook', tempData);
     }
     // resetValues();
     formEl.resetFields()
+    emit("changeFormVisibility", false)
 }
-
-let editBook1 = (book) => {
-    newBook.value.id = book.id;
-    newBook.value.title = book.title;
-    newBook.value.type = book.type;
-    newBook.value.author = book.author;
-    newBook.value.price = book.price;
-    newBook.value.btnStatus = 'Update';
-}
-
 const resetForm = (formEl) => {
+    console.log(formEl.formData)
     if (!formEl) return
     formEl.resetFields()
+    //emit("changeFormVisibility", false)
 }
 
 </script>
+
