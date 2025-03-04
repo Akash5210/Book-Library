@@ -2,7 +2,7 @@
 <template>
   <header>
     <div class="wrapper">
-      <BooksLibrary msg="ep" />
+      <BooksLibrary msg="Book Store" />
       <nav>
         <RouterLink to="/">Book Library</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -32,8 +32,9 @@ header {
 nav {
   width: 100%;
   font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  text-align: right;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 nav a.router-link-exact-active {

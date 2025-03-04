@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="actionHeaderButtons">
     <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
-    <el-button-group class="ml-4">
+    <el-button-group class=" ml-20">
       <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
       <el-button type="primary" :icon="Files" @click="currentView = 'card'" />
     </el-button-group>
@@ -85,3 +85,12 @@ let removeBook = (id) => {
 }
 
 </script>
+<style>
+.actionHeaderButtons{
+  display: flex;
+  justify-content:flex-end;
+}
+.ml-20{
+  margin-left: 20px;
+}
+</style>
