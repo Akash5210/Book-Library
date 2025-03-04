@@ -21,13 +21,22 @@
       </el-table-column>
     </el-table>
   </div>
+  <AddOrEditBook 
+    :modifyBook="modifyBook"
+  />
 </template>
 <script setup>
+import { ref } from 'vue';
+
+import AddOrEditBook from './AddOrEditBook.vue'
+
 const props = defineProps(['booksdata'])
-const emit = defineEmits(['removeBook', 'populateModal'])
+const emit = defineEmits(['removeBook', 'modifyBook'])
+
+const modifyBook = ref({});
 
 const handleEdit = (book) => {
-  emit('populateModal', book)
+  emit('modifyBook', {...book});
 }
 const handleDelete = (book) => {
   emit('removeBook', book.id)

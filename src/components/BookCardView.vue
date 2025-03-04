@@ -33,6 +33,7 @@ import IconEdit from "./icons/IconEdit.vue";
 import IconDelete from "./icons/IconDelete.vue";
 
 
+
 const props = defineProps(['booksdata'])
 const emit = defineEmits(['removeBook', 'editBook'])
 
