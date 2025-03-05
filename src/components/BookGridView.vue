@@ -1,8 +1,22 @@
 <template>
   <div>
-    <el-table :data="booksdata" style="width: 100%">
+    <el-table ref="gridRef" :data="booksdata" style="width: 100%">
       <el-table-column fixed prop="title" label="Title" show-overflow-tooltip sortable min-width="160" />
-      <el-table-column fixed prop="type" label="Type" show-overflow-tooltip sortable />
+      <el-table-column 
+        fixed 
+        prop="type" 
+        label="Type" 
+        show-overflow-tooltip 
+        sortable 
+        :filters="[
+          {text: 'Science Fiction', value: 'Science Fiction'},
+          {text: 'Romance', value: 'Romance'},
+          {text: 'Horror', value: 'Horror'},
+          {text: 'Thriller', value: 'Thriller'},
+          {text: 'Fantasy', value: 'Fantasy'},
+        ]"
+        :filter-method="filterBookType"
+      />
       <el-table-column prop="author" label="Author" show-overflow-tooltip/>
       <el-table-column prop="price" label="Price" show-overflow-tooltip sortable />
       <el-table-column prop="id" label="ID"/>
@@ -33,7 +47,14 @@ import AddOrEditBook from './AddOrEditBook.vue'
 const props = defineProps(['booksdata'])
 const emit = defineEmits(['removeBook', 'modifyBook'])
 
+const gridRef = ref();
+
 const modifyBook = ref({});
+
+const filterBookType = (value, row, column) => {
+  const bookType = column['property'];
+  return row[bookType].includes(value);
+}
 
 const handleEdit = (book) => {
   emit('modifyBook', {...book});

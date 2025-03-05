@@ -45,7 +45,7 @@ import jsonBookData from './bookData.json'
 //publication date new property
 const booksdata = ref(jsonBookData);
 
-const currentView = ref("card");
+const currentView = ref("grid");
 const isFormVisible = ref(false);
 const modifyBookData = ref({});
 

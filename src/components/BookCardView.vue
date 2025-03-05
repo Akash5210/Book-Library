@@ -15,7 +15,7 @@
           <div class="bookDetails">
             <p class="ellipsis">Title:
               <el-tooltip class="box-item" :disabled="book.title.length < 15" effect="light" :content="book.title"
-                placement="bottom-start">
+                placement="bottom-start" :open-delay="200">
                 {{ book.title }}
               </el-tooltip>
             </p>
