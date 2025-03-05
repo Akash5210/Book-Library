@@ -2,7 +2,7 @@
 <template>
   <header>
     <div class="wrapper">
-      <BooksLibrary msg="Book Store" />
+      <BookBrand msg="Book Store" />
       <nav>
         <RouterLink to="/">Book Library</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -14,7 +14,7 @@
 </template>
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import BooksLibrary from './components/BooksLibrary.vue'
+import BookBrand from './components/BookBrand.vue'
 
 </script>
 

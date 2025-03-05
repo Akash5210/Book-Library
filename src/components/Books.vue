@@ -1,7 +1,7 @@
 <template>
   <div class="actionHeaderButtons">
     <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
-    <el-button-group class=" ml-20">
+    <el-button-group class="ml-20">
       <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
       <el-button type="primary" :icon="Files" @click="currentView = 'card'" />
     </el-button-group>
@@ -21,7 +21,13 @@
     @removeBook="removeBook" 
     @editBook="editBook" 
   />
-  <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @removeBook="removeBook" @modifyBook="modifyBook"/>
+  <BookGridView 
+    v-if="currentView === 'grid'" 
+    :booksdata="booksdata" 
+    @modifyBook="modifyBook"
+    @removeBook="removeBook" 
+    @editBook="editBook"
+  />
 </template>
 
 <script setup>
@@ -36,7 +42,7 @@ import BookGridView from './BookGridView.vue'
 
 //publication date new property
 const booksdata = ref([
-  { id: 1, title: "The Gravity", type: ["Science Fiction"], author: "123", price: "10", summary: "testing1" },
+  { id: 1, title: "The Gravity sdf sdf sdf s fsdf sd fdsf sd  sd fsd sdfd sdf ", type: ["Science Fiction"], author: "123", price: "10", summary: "testing1" },
   { id: 2, title: "Intesteller", type: ["Science Fiction"], author: "456", price: "20", summary: "testing2"},
   { id: 3, title: "Doremon", type: ["Romance"], author: "789", price: "25", summary: "testing3" },
   { id: 4, title: "Sinchan", type: ["Romance"], author: "101", price: "15", summary: "testing1" },
@@ -48,7 +54,7 @@ const booksdata = ref([
   { id: 10, title: "Can Love happens twice", type: ["Fantasy"], author: "107", price: "11", summary: "testing01" }
 ])
 
-const currentView = ref("grid");
+const currentView = ref("card");
 const isFormVisible = ref(false);
 const modifyBookData = ref({});
 
@@ -89,6 +95,7 @@ let removeBook = (id) => {
 .actionHeaderButtons{
   display: flex;
   justify-content:flex-end;
+  margin-bottom: 10px;
 }
 .ml-20{
   margin-left: 20px;
