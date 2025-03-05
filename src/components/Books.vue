@@ -28,17 +28,18 @@
     @removeBook="removeBook" 
     @editBook="editBook"
   />
-  <BooksCarousel/>
+  <BooksCarousel :carouselData="carouselData"/>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { Plus, Grid, Files } from '@element-plus/icons-vue'
-import AddOrEditBook from './AddOrEditBook.vue'
-import BookCardView from './BookCardView.vue'
-import BookGridView from './BookGridView.vue'
-import BooksCarousel from './BooksCarousel.vue'
-import jsonBookData from './bookData.json'
+import { Plus, Grid, Files } from '@element-plus/icons-vue';
+import AddOrEditBook from './AddOrEditBook.vue';
+import BookCardView from './BookCardView.vue';
+import BookGridView from './BookGridView.vue';
+import BooksCarousel from './BooksCarousel.vue';
+import jsonBookData from './bookData.json';
+import carouselData from './carouselData.json';
 
 // const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 

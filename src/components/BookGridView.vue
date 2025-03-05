@@ -1,12 +1,17 @@
 <template>
   <div>
-    <el-table ref="gridRef" :data="booksdata" style="width: 100%">
+    <el-table ref="gridRef" 
+      :data="booksdata" 
+      tooltip-effect="light" 
+      fit
+      style="width: 100%">
       <el-table-column fixed prop="title" label="Title" show-overflow-tooltip sortable min-width="160" />
       <el-table-column 
         fixed 
         prop="type" 
         label="Type" 
         show-overflow-tooltip 
+        tooltip-effect="light"
         sortable 
         :filters="[
           {text: 'Science Fiction', value: 'Science Fiction'},
