@@ -21,7 +21,7 @@
             </p>
             <p>Genre : {{ book.type.join(', ') }}</p>
             <p>Author: {{ book.author }}</p>
-            <p>Price: {{ book.price }}</p>
+            <p>Price: ₹{{ book.price }}</p>
           </div>
           <div class="actionButtons">
             <el-button @click="handleEdit(book)" circle>
