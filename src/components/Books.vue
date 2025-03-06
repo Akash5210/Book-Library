@@ -1,6 +1,6 @@
 <template>
   <div class="booksHome">
-    <div class="actionHeaderButtons">
+    <div class="actionHeaderButtons py-6">
       <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
       <el-button-group class="ml-20">
         <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
