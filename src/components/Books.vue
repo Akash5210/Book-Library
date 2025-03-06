@@ -29,6 +29,7 @@
     @editBook="editBook"
   />
   <BooksCarousel :carouselData="carouselData"/>
+  <FooterSection />
 </template>
 
 <script setup>
@@ -38,6 +39,7 @@ import AddOrEditBook from './AddOrEditBook.vue';
 import BookCardView from './BookCardView.vue';
 import BookGridView from './BookGridView.vue';
 import BooksCarousel from './BooksCarousel.vue';
+import FooterSection from './Footer.vue';
 import jsonBookData from './bookData.json';
 import carouselData from './carouselData.json';
 
