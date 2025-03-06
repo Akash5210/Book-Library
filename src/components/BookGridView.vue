@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gridView">
     <el-table ref="gridRef" 
       :data="booksdata" 
       tooltip-effect="light" 

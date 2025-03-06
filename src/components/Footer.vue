@@ -62,6 +62,10 @@ const footerDetails = {
 }
 </script>
 <style scoped>
+.footerSection{
+    background-color: rgb(248, 243, 238);
+    padding: 2rem 10rem;
+}
 .footerSection a {
     display: block;
     color: rgb(75, 72, 72);
@@ -81,9 +85,14 @@ const footerDetails = {
 .footerSection .socialIcons img {
     width: 30px;
 }
-
+.footerSection .socialIcons img:hover {
+    scale: 1.1;
+}
 .footerSection .storeIcons {
     display: flex;
-    /* width: 30px; */
+    scale: 1.1;
+}
+.footerSection .storeIcons :hover{
+    scale: 1.02;
 }
 </style>

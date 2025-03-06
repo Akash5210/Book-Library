@@ -1,35 +1,21 @@
 <template>
-  <div class="actionHeaderButtons">
-    <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
-    <el-button-group class="ml-20">
-      <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
-      <el-button type="primary" :icon="Files" @click="currentView = 'card'" />
-    </el-button-group>
+  <div class="booksHome">
+    <div class="actionHeaderButtons">
+      <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
+      <el-button-group class="ml-20">
+        <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
+        <el-button type="primary" :icon="Files" @click="currentView = 'card'" />
+      </el-button-group>
+    </div>
+    <AddOrEditBook :booksdata="booksdata" :isFormVisible="isFormVisible" :modifyBookData="modifyBookData"
+      @changeFormVisibility="changeFormVisibility" @addBook="addBook" @editBook="editBook" />
+    <BookCardView v-if="currentView === 'card'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
+      @editBook="editBook" />
+    <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
+      @editBook="editBook" />
+    <BooksCarousel :carouselData="carouselData" />
+    <FooterSection />
   </div>
-  <AddOrEditBook 
-    :booksdata="booksdata" 
-    :isFormVisible="isFormVisible" 
-    :modifyBookData="modifyBookData"
-    @changeFormVisibility="changeFormVisibility"
-    @addBook="addBook" 
-    @editBook="editBook"
-  />
-  <BookCardView 
-    v-if="currentView === 'card'" 
-    :booksdata="booksdata" 
-    @modifyBook="modifyBook"
-    @removeBook="removeBook" 
-    @editBook="editBook" 
-  />
-  <BookGridView 
-    v-if="currentView === 'grid'" 
-    :booksdata="booksdata" 
-    @modifyBook="modifyBook"
-    @removeBook="removeBook" 
-    @editBook="editBook"
-  />
-  <BooksCarousel :carouselData="carouselData"/>
-  <FooterSection />
 </template>
 
 <script setup>
@@ -52,7 +38,7 @@ const currentView = ref("grid");
 const isFormVisible = ref(false);
 const modifyBookData = ref({});
 
-const changeFormVisibility = (currentValue)=>{
+const changeFormVisibility = (currentValue) => {
   isFormVisible.value = currentValue;
 }
 
@@ -61,7 +47,7 @@ const addBook = (book) => {
   console.log("pushed", book)
 }
 
-const modifyBook = (book)=>{
+const modifyBook = (book) => {
   modifyBookData.value = book;
 }
 
@@ -86,12 +72,19 @@ let removeBook = (id) => {
 
 </script>
 <style>
-.actionHeaderButtons{
+.actionHeaderButtons {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   margin-bottom: 10px;
+  max-width: 1280px;
+  margin: 0 18rem;
 }
-.ml-20{
+
+.ml-20 {
   margin-left: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 200px;
 }
 </style>
