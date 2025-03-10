@@ -1,6 +1,6 @@
 <template>
-    <el-dialog v-if="loginDialogVisible" class="loginDialog" v-model="loginDialogVisible" title="Login" width="400" center
-    @close="closeForm" @close-auto-focus="closeForm">
+    <el-dialog v-if="loginDialogVisible" class="loginDialog" v-model="loginDialogVisible" title="Login" width="400"
+        center @close="closeForm" @close-auto-focus="closeForm">
         <el-form @submit.prevent="handleLogin" label-width="auto" style="max-width: 500px">
             <el-form-item label="Email:">
                 <el-input v-model="email" type="email" id="email" required />
@@ -11,7 +11,6 @@
             <button button type="submit" class="login loginBtn">Login</button>
             <button @click="closeForm" class="login cancelBtn">Cancel</button>
         </el-form>
-        <!-- <p v-if="errorMessage" class="error">{{ errorMessage }}</p> -->
     </el-dialog>
 </template>
 
@@ -25,13 +24,11 @@ const loggedInAccess = useLoggedInAccessStore()
 
 const email = ref('');
 const password = ref('');
-// const errorMessage = ref('');
 const loginDialogVisible = ref(true);
 
 const handleLogin = async () => {
     try {
         await loginUser(email.value, password.value);
-        // errorMessage.value = '';  // Clear error message
         // Redirect or update UI after successful login
         loggedInAccess.setIsLoggedIn(true)
         closeForm()
@@ -47,7 +44,6 @@ const handleLogin = async () => {
             showClose: true,
             type: 'error',
         })
-        // errorMessage.value = 'Failed to log in. Please try again. ' + error;
     }
 };
 
@@ -57,7 +53,7 @@ const closeForm = () => {
 }
 </script>
 <style scoped>
-.login{
+.login {
     color: white;
     border: 1px solid;
     border-radius: 4px;
@@ -66,20 +62,24 @@ const closeForm = () => {
     margin: 5px 0;
     width: 100%;
 }
-.login.loginBtn{
+
+.login.loginBtn {
     border-color: #409EFF;
     color: #409EFF;
 }
-.login.cancelBtn{
+
+.login.cancelBtn {
     border-color: #f19797;
     color: #f19797;
 }
-.login.loginBtn:hover{
+
+.login.loginBtn:hover {
     border-color: #409EFF;
     color: white;
     background-color: #409EFF;
 }
-.login.cancelBtn:hover{
+
+.login.cancelBtn:hover {
     border-color: #f19797;
     color: white;
     background-color: #f19797;

@@ -1,7 +1,8 @@
 <template>
   <div class="cardView">
-    <el-space wrap>
-      <el-card v-for="book in booksdata" :key="book.id" style="width: 220px">
+    <el-scrollbar height="500px">
+    <el-space wrap >
+      <el-card v-for="book in booksdata" :key="book.id" style="width: 220px" lazy>
         <el-image class="imagePlaceholder">
           <template #error>
             <div class="image-slot">
@@ -38,6 +39,7 @@
         </div>
       </el-card>
     </el-space>
+  </el-scrollbar>
   </div>
   <AddOrEditBook :modifyBook="modifyBook" />
 </template>
@@ -66,7 +68,7 @@ const handleDelete = (book) => {
 
 <style scoped>
 .cardView {
-  margin-bottom: 20px;
+  margin: 20px auto;
 }
 
 .cardView .bookDetails {

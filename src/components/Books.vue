@@ -1,7 +1,7 @@
 <template>
   <div class="booksHome">
     <div class="actionHeaderButtons py-6">
-      <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
+      <el-button v-if="loggedInAccess.getIsLoggedIn" @click="isFormVisible = true" type="success" plain :icon="Plus">Add New Book</el-button>
       <el-button-group class="ml-20">
         <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" :plain="currentView !== 'grid'"/>
         <el-button type="primary" :icon="Files" @click="currentView = 'card'" :plain="currentView !== 'card'"/>
@@ -16,6 +16,7 @@
       @editBook="editBook" />
     <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
       @editBook="editBook" />
+    <!-- <img :src="mangamaniaImg" /> -->
     <BooksCarousel :carouselData="carouselData" />
     <FooterSection />
 
@@ -35,6 +36,9 @@ import jsonBookData from './bookData.json';
 import carouselData from './carouselData.json';
 import Login from './login/Login.vue';
 import Register from './login/Register.vue';
+
+// import mangamaniaImg from '@/assets/bookImages/mangamania.jpg';
+// import nonfictionImg from '@/assets/bookImages/nonfiction.jpg';
 
 // const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
