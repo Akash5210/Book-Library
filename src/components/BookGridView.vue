@@ -12,7 +12,7 @@
       <el-table-column prop="author" label="Author" show-overflow-tooltip />
       <el-table-column prop="price" label="Price" show-overflow-tooltip sortable />
       <el-table-column prop="id" label="ID" />
-      <el-table-column fixed="right" label="Operations">
+      <el-table-column v-if="loggedInAccess.getIsLoggedIn" fixed="right" label="Operations">
         <template #default="scope">
           <el-button @click="handleEdit(scope.row)" type="primary" size="small">Edit</el-button>
           <el-popconfirm title="Are you sure to remove this?" @confirm="handleDelete(scope.row)">
@@ -39,12 +39,14 @@
 import { ref, computed } from 'vue';
 
 import AddOrEditBook from './AddOrEditBook.vue'
+import { useLoggedInAccessStore } from '@/stores/loggedInAccess'
+
+const loggedInAccess = useLoggedInAccessStore()
 
 const props = defineProps(['booksdata'])
 const emit = defineEmits(['removeBook', 'modifyBook'])
 
 const gridRef = ref();
-
 const modifyBook = ref({});
 const currentPage = ref(1)
 

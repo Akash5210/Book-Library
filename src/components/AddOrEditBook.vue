@@ -77,8 +77,7 @@ watch(() => props.isFormVisible, (currentValue) => {
 }, { deep: true });
 
 watch(() => props.modifyBookData, (currentValue) => {
-    newBook.value = currentValue;
-    newBook.value["btnStatus"] = "Update";
+    newBook.value = { ...currentValue, btnStatus: "Update" };
     dialogVisible.value = true;
 })
 

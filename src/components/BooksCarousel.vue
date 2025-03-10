@@ -44,10 +44,6 @@ const summaryellipsis = (summary) => {
     aspect-ratio: 3/4.5;
 }
 
-/* .carouselBody .publishedDate {
-    font-size: 0.7rem;
-} */
-
 .el-carousel__item {
     padding: 5px 10px;
 }

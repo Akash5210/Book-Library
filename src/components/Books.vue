@@ -3,10 +3,13 @@
     <div class="actionHeaderButtons py-6">
       <el-button plain @click="isFormVisible = true" type="success" :icon="Plus">Add New Book</el-button>
       <el-button-group class="ml-20">
-        <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" />
-        <el-button type="primary" :icon="Files" @click="currentView = 'card'" />
+        <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" :plain="currentView !== 'grid'"/>
+        <el-button type="primary" :icon="Files" @click="currentView = 'card'" :plain="currentView !== 'card'"/>
       </el-button-group>
     </div>
+    <Login v-if="loggedInAccess.getShowLoginModal"/>
+    <Register v-if="loggedInAccess.getshowRegisterModal"/>
+
     <AddOrEditBook :booksdata="booksdata" :isFormVisible="isFormVisible" :modifyBookData="modifyBookData"
       @changeFormVisibility="changeFormVisibility" @addBook="addBook" @editBook="editBook" />
     <BookCardView v-if="currentView === 'card'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
@@ -15,6 +18,8 @@
       @editBook="editBook" />
     <BooksCarousel :carouselData="carouselData" />
     <FooterSection />
+
+    <el-backtop :right="100" :bottom="100" />
   </div>
 </template>
 
@@ -28,10 +33,15 @@ import BooksCarousel from './BooksCarousel.vue';
 import FooterSection from './Footer.vue';
 import jsonBookData from './bookData.json';
 import carouselData from './carouselData.json';
+import Login from './login/Login.vue';
+import Register from './login/Register.vue';
 
 // const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
-//publication date new property
+import { useLoggedInAccessStore } from '@/stores/loggedInAccess'
+
+const loggedInAccess = useLoggedInAccessStore()
+
 const booksdata = ref(jsonBookData);
 
 const currentView = ref("grid");
@@ -54,18 +64,18 @@ const modifyBook = (book) => {
 const editBook = (currentBook) => {
   console.log(currentBook)
 
-  booksdata.value.forEach(book => {
-    if (book.id === currentBook.id) {
-      book.title = currentBook.title;
-      book.type = [...currentBook.type];
-      book.author = currentBook.author;
-      book.price = currentBook.price;
-      book.summary = currentBook.summary
-    }
-  })
+  const book = booksdata.value.find(book => book.id === currentBook.id)
+  if (book) {
+    // book.title = currentBook.title;
+    // book.type = [...currentBook.type];
+    // book.author = currentBook.author;
+    // book.price = currentBook.price;
+    // book.summary = currentBook.summary
+    Object.assign(book, currentBook);
+  }
 }
 
-let removeBook = (id) => {
+const removeBook = (id) => {
   console.log(id);
   booksdata.value = booksdata.value.filter(book => book.id !== id);
 }
@@ -86,5 +96,9 @@ let removeBook = (id) => {
 
 .mb-20 {
   margin-bottom: 200px;
+}
+
+.login{
+
 }
 </style>

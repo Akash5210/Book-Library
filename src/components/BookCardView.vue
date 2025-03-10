@@ -23,7 +23,7 @@
             <p>Author: {{ book.author }}</p>
             <p>Price: ₹{{ book.price }}</p>
           </div>
-          <div class="actionButtons">
+          <div class="actionButtons" v-if="loggedInAccess.getIsLoggedIn">
             <el-button @click="handleEdit(book)" circle>
               <IconEdit style="width: 1em; height: 1em;" />
             </el-button>
@@ -48,7 +48,9 @@ import IconEdit from "./icons/IconEdit.vue";
 import IconDelete from "./icons/IconDelete.vue";
 
 import AddOrEditBook from './AddOrEditBook.vue'
+import { useLoggedInAccessStore } from '@/stores/loggedInAccess'
 
+const loggedInAccess = useLoggedInAccessStore()
 
 const props = defineProps(['booksdata'])
 const emit = defineEmits(['removeBook', 'modifyBook'])
@@ -93,16 +95,6 @@ const handleDelete = (book) => {
   background: var(--el-fill-color-light);
   color: var(--el-text-color-secondary);
   font-size: 30px;
-}
-.image-slot {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background: var(--el-fill-color-light);
-  color: var(--el-text-color-secondary);
-  font-size: 30px; */
 }
 .image-slot .el-icon {
   font-size: 30px;
