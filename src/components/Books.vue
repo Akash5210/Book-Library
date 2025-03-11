@@ -1,22 +1,25 @@
 <template>
   <div class="booksHome">
-    <el-input v-model="bookName.query" placeholder="Search Books" style="width: 300px;" />
-    <div class="actionHeaderButtons py-6">
-      <el-button v-if="loggedInAccess.getIsLoggedIn" @click="isFormVisible = true" type="success" plain :icon="Plus">Add New Book</el-button>
-      <el-button-group class="ml-20">
-        <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" :plain="currentView !== 'grid'"/>
-        <el-button type="primary" :icon="Files" @click="currentView = 'card'" :plain="currentView !== 'card'"/>
-      </el-button-group>
+    <div class="actionHeader">
+      <el-input v-model="bookName.query" placeholder="Search Books" style="width: 300px;" />
+      <div class="actionHeaderButtons py-6">
+        <el-button v-if="loggedInAccess.getIsLoggedIn" @click="isFormVisible = true" type="success" plain
+          :icon="Plus">Add New Book</el-button>
+        <el-button-group class="ml-20">
+          <el-button type="primary" :icon="Grid" @click="currentView = 'grid'" :plain="currentView !== 'grid'" />
+          <el-button type="primary" :icon="Files" @click="currentView = 'card'" :plain="currentView !== 'card'" />
+        </el-button-group>
+      </div>
     </div>
-    <Login v-if="loggedInAccess.getShowLoginModal"/>
-    <Register v-if="loggedInAccess.getshowRegisterModal"/>
+    <Login v-if="loggedInAccess.getShowLoginModal" />
+    <Register v-if="loggedInAccess.getshowRegisterModal" />
 
     <AddOrEditBook :booksdata="booksdata" :isFormVisible="isFormVisible" :modifyBookData="modifyBookData"
       @changeFormVisibility="changeFormVisibility" @addBook="addBook" @editBook="editBook" />
     <BookCardView v-if="currentView === 'card'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
       @editBook="editBook" />
-    <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" :bookName="bookName.debouncedQuery" @modifyBook="modifyBook" @removeBook="removeBook"
-      @editBook="editBook" />
+    <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" :bookName="bookName.debouncedQuery"
+      @modifyBook="modifyBook" @removeBook="removeBook" @editBook="editBook" />
     <!-- <img :src="mangamaniaImg" /> -->
     <BooksCarousel :carouselData="carouselData" />
     <FooterSection />
@@ -52,7 +55,7 @@ const booksdata = ref(jsonBookData);
 const currentView = ref("grid");
 const isFormVisible = ref(false);
 const modifyBookData = ref({});
-const bookName = ref({query: "", debouncedQuery: "", timeout: null});
+const bookName = ref({ query: "", debouncedQuery: "", timeout: null });
 
 const changeFormVisibility = (currentValue) => {
   isFormVisible.value = currentValue;
@@ -98,12 +101,15 @@ const removeBook = (id) => {
 
 </script>
 <style>
-.actionHeaderButtons {
+.actionHeader{
+  max-width: 1200px;
+  margin: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+.actionHeaderButtons {
   margin-bottom: 10px;
-  max-width: 1280px;
-  margin: 0 18rem;
 }
 
 .ml-20 {
@@ -112,9 +118,5 @@ const removeBook = (id) => {
 
 .mb-20 {
   margin-bottom: 200px;
-}
-
-.login{
-
 }
 </style>
