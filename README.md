@@ -20,7 +20,11 @@ npm run dev
 ```
 npm run build
 ```
-### Compile and Minify for Production
+### Deploy latest app on firebase
+
+```
+firebase deploy
+```
 
 Admin id through which firebase is registered: akashshah5210@gmail.com
 
