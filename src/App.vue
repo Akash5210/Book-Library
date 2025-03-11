@@ -1,5 +1,6 @@
 
 <template>
+  <div :class="rootStore.getTheme">
   <header>
     <div class="wrapper">
       <BookBrand msg="Book Store" />
@@ -11,10 +12,14 @@
   </header>
 
   <RouterView />
+</div>
 </template>
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import BookBrand from './components/BookBrand.vue'
+import { useRootStore } from '@/stores/index'
+
+const rootStore = useRootStore()
 
 </script>
 

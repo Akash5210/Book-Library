@@ -1,0 +1,104 @@
+@import './base.css';
+.light{
+    color: var(--vt-c-text-light-1);
+    background-color: var(--vt-c-white);
+    
+    .el-table{
+        // --el-table-header-text-color: var();
+        // --el-table-header-bg-color: var(--el-bg-color);
+        // --el-table-bg-color: var(--el-table-bg-color);
+        // color: var(--vt-c-text-light-1);
+        // --el-table-tr-bg-color: var(--el-bg-color);
+        // --el-table-border: 1px solid var(--el-table-border-color)
+    }
+}
+.dark{
+    color: var(--vt-c-white);
+    background-color: var(--vt-c-black-soft);
+    
+    .gridView .el-tooltip{
+        // --el-tooltip-bg-color: var(--vt-c-black-soft);
+        // --el-tooltip-text-color: var(--vt-c-white);
+    }
+
+    .el-input{
+        --el-input-text-color: var(--vt-c-white);
+        --el-input-bg-color: var(--vt-c-black-mute);
+        --el-input-placeholder-color: var(--el-text-color-placeholder);
+    }
+
+    .el-table{
+        --el-table-header-text-color: var(--vt-c-white);
+        --el-table-header-bg-color: var(--vt-c-indigo);
+        --el-table-bg-color: grey !important;
+        background-color: var(--vt-c-black-soft);
+        color: var(--vt-c-white);
+        --el-table-tr-bg-color: var(--vt-c-black-mute);
+        --el-table-border-color: var(--vt-c-indigo);
+        --el-table-row-hover-bg-color: var(--vt-c-black-soft);
+    }
+
+    .el-pagination{
+        --el-pagination-button-color: var(--vt-c-white);
+        --el-pagination-bg-color: var(--vt-c-indigo);
+        --el-pagination-button-bg-color: var(--vt-c-indigo);
+    }
+}
+.wrapper{
+    background-color: rgb(248, 243, 238);
+    padding:0 10rem;
+    margin-bottom: 1rem;
+}
+.gridView, .carouselBody, .cardView{
+    max-width: 1280px;
+    padding: 0 2rem;
+    margin: 0 auto 1rem auto;
+}
+a, .green {
+    text-decoration: none;
+    color: hsla(160, 100%, 37%, 1);
+    transition: 0.4s;
+    padding: 3px;
+}
+
+.loginDialog{
+    .login {
+        // color: white;
+        border: 1px solid;
+        border-radius: 4px;
+        padding: 0.7rem;
+        cursor: pointer;
+        margin: 5px 0;
+        width: 100%;
+
+        &.loginBtn {
+            border-color: #409EFF;
+            color: #409EFF;
+
+            &:hover{
+                border-color: #409EFF;
+                color: white;
+                background-color: #409EFF;
+            }
+        }
+        &.login.cancelBtn {
+            border-color: #f19797;
+            color: #f19797;
+
+            &:hover{
+                border-color: #f19797;
+                color: white;
+                background-color: #f19797;
+            }
+        }
+    }
+}
+
+.ellipsis {
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+  }

@@ -52,36 +52,3 @@ const closeForm = () => {
     loggedInAccess.setShowLoginModal(false);
 }
 </script>
-<style scoped>
-.login {
-    color: white;
-    border: 1px solid;
-    border-radius: 4px;
-    padding: 0.7rem;
-    cursor: pointer;
-    margin: 5px 0;
-    width: 100%;
-}
-
-.login.loginBtn {
-    border-color: #409EFF;
-    color: #409EFF;
-}
-
-.login.cancelBtn {
-    border-color: #f19797;
-    color: #f19797;
-}
-
-.login.loginBtn:hover {
-    border-color: #409EFF;
-    color: white;
-    background-color: #409EFF;
-}
-
-.login.cancelBtn:hover {
-    border-color: #f19797;
-    color: white;
-    background-color: #f19797;
-}
-</style>

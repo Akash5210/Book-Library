@@ -1,6 +1,6 @@
 <template>
   <div class="gridView">
-    <el-table ref="gridRef" :data="tableBookData" tooltip-effect="light" fit style="width: 100%;height: 51vh;">
+    <el-table ref="gridRef" :data="tableBookData" :tooltip-effect="rootStore.getTheme" fit style="width: 100%;height: 51vh;">
       <el-table-column fixed prop="title" label="Title" show-overflow-tooltip sortable min-width="160" />
       <el-table-column fixed prop="type" label="Type" show-overflow-tooltip tooltip-effect="light" sortable :filters="[
         { text: 'Science Fiction', value: 'Science Fiction' },
@@ -27,6 +27,7 @@
       <el-pagination 
         v-model:current-page="currentPage"
         :page-size="10" 
+        background
         :total="paginationTotalLength"
         layout="prev, pager, next" 
         @current-change="handleCurrentChange"
@@ -40,8 +41,11 @@ import { ref, computed } from 'vue';
 
 import AddOrEditBook from './AddOrEditBook.vue'
 import { useLoggedInAccessStore } from '@/stores/loggedInAccess'
+import { useRootStore } from '@/stores/index'
 
 const loggedInAccess = useLoggedInAccessStore()
+const rootStore = useRootStore()
+
 
 const props = defineProps(['booksdata','bookName'])
 const emit = defineEmits(['removeBook', 'modifyBook'])
@@ -81,6 +85,6 @@ const tableBookData = computed(()=>{
 <style>
 .gridView .pagination-block{
   width: 20rem;
-  margin: 0 auto;
+  margin: 5px auto;
 }
 </style>

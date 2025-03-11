@@ -81,14 +81,6 @@ const handleDelete = (book) => {
   justify-content: space-around;
 }
 
-.ellipsis {
-  width: 100%;
-  display: block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: break-all;
-}
 .imagePlaceholder{
   height: 7rem;
   display: flex;

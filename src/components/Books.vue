@@ -85,11 +85,6 @@ const editBook = (currentBook) => {
 
   const book = booksdata.value.find(book => book.id === currentBook.id)
   if (book) {
-    // book.title = currentBook.title;
-    // book.type = [...currentBook.type];
-    // book.author = currentBook.author;
-    // book.price = currentBook.price;
-    // book.summary = currentBook.summary
     Object.assign(book, currentBook);
   }
 }
