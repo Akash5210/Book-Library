@@ -27,7 +27,7 @@
       <el-pagination 
         v-model:current-page="currentPage"
         :page-size="10" 
-        :total="booksdata.length"
+        :total="paginationTotalLength"
         layout="prev, pager, next" 
         @current-change="handleCurrentChange"
       />
@@ -43,12 +43,16 @@ import { useLoggedInAccessStore } from '@/stores/loggedInAccess'
 
 const loggedInAccess = useLoggedInAccessStore()
 
-const props = defineProps(['booksdata'])
+const props = defineProps(['booksdata','bookName'])
 const emit = defineEmits(['removeBook', 'modifyBook'])
 
 const gridRef = ref();
 const modifyBook = ref({});
 const currentPage = ref(1)
+
+const paginationTotalLength = computed(() => {
+  return props.booksdata.filter((book) => book.title.toLowerCase().includes(props.bookName.toLowerCase())).length
+})
 
 const filterBookType = (value, row, column) => {
   const bookType = column['property'];
@@ -67,7 +71,10 @@ const handleCurrentChange = (val) => {
 }
 
 const tableBookData = computed(()=>{
-  return props.booksdata.slice(10 * currentPage.value - 10, 10 * currentPage.value)
+  // return props.booksdata.slice(10 * currentPage.value - 10, 10 * currentPage.value)
+  const startPageIndex = 10 * currentPage.value - 10;
+  const endPageIndex = 10 * currentPage.value;
+  return props.booksdata.filter((book) => book.title.toLowerCase().includes(props.bookName.toLowerCase())).slice(startPageIndex, endPageIndex)
 })
 </script>
 

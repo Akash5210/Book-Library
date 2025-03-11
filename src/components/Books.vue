@@ -1,5 +1,6 @@
 <template>
   <div class="booksHome">
+    <el-input v-model="bookName.query" placeholder="Search Books" style="width: 300px;" />
     <div class="actionHeaderButtons py-6">
       <el-button v-if="loggedInAccess.getIsLoggedIn" @click="isFormVisible = true" type="success" plain :icon="Plus">Add New Book</el-button>
       <el-button-group class="ml-20">
@@ -14,7 +15,7 @@
       @changeFormVisibility="changeFormVisibility" @addBook="addBook" @editBook="editBook" />
     <BookCardView v-if="currentView === 'card'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
       @editBook="editBook" />
-    <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" @modifyBook="modifyBook" @removeBook="removeBook"
+    <BookGridView v-if="currentView === 'grid'" :booksdata="booksdata" :bookName="bookName.debouncedQuery" @modifyBook="modifyBook" @removeBook="removeBook"
       @editBook="editBook" />
     <!-- <img :src="mangamaniaImg" /> -->
     <BooksCarousel :carouselData="carouselData" />
@@ -25,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Plus, Grid, Files } from '@element-plus/icons-vue';
 import AddOrEditBook from './AddOrEditBook.vue';
 import BookCardView from './BookCardView.vue';
@@ -51,10 +52,21 @@ const booksdata = ref(jsonBookData);
 const currentView = ref("grid");
 const isFormVisible = ref(false);
 const modifyBookData = ref({});
+const bookName = ref({query: "", debouncedQuery: "", timeout: null});
 
 const changeFormVisibility = (currentValue) => {
   isFormVisible.value = currentValue;
 }
+
+//debouncing functionlity to watch the query
+watch(() => bookName.value.query, (currentValue) => {
+  if (bookName.value.timeout) {
+    clearTimeout(bookName.value.timeout);
+  }
+  bookName.value.timeout = setTimeout(() => {
+    bookName.value.debouncedQuery = currentValue;
+  }, 500)
+})
 
 const addBook = (book) => {
   booksdata.value.push(book)
